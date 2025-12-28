@@ -1,9 +1,13 @@
+import os
+
 from assets.scripts.file_handler import FileHandler
 from assets.scripts.player import Player
 from assets.scripts.team import Team
 from assets.scripts.manager import Manager
 from assets.scripts.display_handler import DisplayHandler
 
+
+os.environ["PYGAME_DETECT_AVX2"] = "1"
 
 # create file handler to load data
 file_handler = FileHandler()

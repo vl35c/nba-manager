@@ -6,22 +6,38 @@ from ..scripts.settings import *
 class Display:
     def __init__(self, manager):
         self.manager = manager
-
-        pygame.init()
-
-        self.window = pygame.display.set_mode((SCREEN_WIDTH, SCREEN_HEIGHT))
-        pygame.display.set_caption("NBA Manager")
-        logo = pygame.image.load("assets/images/logo.png")
-        pygame.display.set_icon(logo)
+        self.window = pygame.display.get_surface()
 
         self.script = None
+
+        self.logos = {}  # 200 x 200 team logo
+        self.logos_upcoming_games = {}  # 100 x 100 team logo
+
+        for team in TEAM_TRICODE_TO_NAME.values():
+            filename = f"assets/images/team_logos/{'_'.join([a for a in team.lower().split(' ')])}.png"
+            logo = pygame.image.load(filename)
+            self.logos[team] = pygame.transform.smoothscale(logo, (200, 200))
+            self.logos_upcoming_games[team] = pygame.transform.smoothscale(logo, (100, 100))
 
     def setup_console(self, console):
         self.script = console
         self.script.run()
 
+    def draw_background(self):
+        self.window.fill(EIGENGRAU)
+
+        # top bar
+        team = self.manager.team
+        pygame.draw.rect(self.window, TEAM_COLORS[team.name][0], (0, 0, SCREEN_WIDTH, 120))
+        pygame.draw.rect(self.window, TEAM_COLORS[team.name][1], (0, 120, SCREEN_WIDTH, 10))
+
+        # displaying team logo
+        self.window.blit(self.logos[self.manager.team.name], (0, 0))
+
     def run(self):
         while True:
+            self.draw_background()
+
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:
                     pygame.quit()
