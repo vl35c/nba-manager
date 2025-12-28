@@ -1,0 +1,3 @@
+class Suspension:
+    def __init__(self):
+        ...

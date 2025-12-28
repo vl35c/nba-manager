@@ -1,0 +1,3 @@
+class MediaLoader:
+    def __init__(self):
+        ...

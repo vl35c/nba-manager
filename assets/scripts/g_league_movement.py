@@ -1,0 +1,3 @@
+class GLeagueMovement:
+    def __init__(self):
+        ...
