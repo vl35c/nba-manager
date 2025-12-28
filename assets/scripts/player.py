@@ -62,12 +62,15 @@ class Player:
 
         self.__media_loader = MediaLoader()
 
+    def __str__(self):
+        return f"{self.name}"
+
     @property
     def image(self) -> pygame.Surface:
         if self.__image is None:
             path = "assets/images/player_photos/"
             filename = f"{'_'.join([a for a in self.current_team.name.split(' ')])}/{self.basketball_reference_id}.png"
-            self.__original_image = self.__media_loader.load_image_to_size(f"{path}{filename}", (350, 254))
-            self.__image = self.__media_loader.load_image_to_size(f"{path}{filename}", (140, 100))
+            self.__original_image = self.__media_loader.load_image_to_size(f"{path}{filename.lower()}", (350, 254))
+            self.__image = self.__media_loader.load_image_to_size(f"{path}{filename.lower()}", (140, 100))
 
         return self.__image
