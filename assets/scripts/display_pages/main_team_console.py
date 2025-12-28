@@ -47,7 +47,7 @@ class MainTeamConsole(Display):
         pos = (high_color - attr) / 200
         color_vec = [colors[high_color][i] - colors[low_color][i] for i in range(3)]
         color = [c * pos for c in color_vec]
-        color = [int(c + colors[low_color][i] for i, c in enumerate(color))]
+        color = [int(c + colors[low_color][i]) for i, c in enumerate(color)]
 
         return tuple(color)
 

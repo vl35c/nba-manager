@@ -23,6 +23,7 @@ class Display:
 
     def setup_console(self, console):
         self.script = console
+        self.script.setup_display()
         self.script.run()
 
     def draw_background(self):

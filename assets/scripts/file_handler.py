@@ -10,6 +10,7 @@ class FileHandler:
 
         self.__load_players()
         self.__load_teams()
+        self.__add_players_to_team()
 
     @staticmethod
     def get_data_from_file(filename: str) -> list[str]:
@@ -49,4 +50,22 @@ class FileHandler:
             teams.update({data[0].rstrip('\n'): Team(*data[:-1], data[-1].rstrip('\n'))})
 
         self.teams = teams
+
+    def __add_players_to_team(self) -> None:
+        roster_data = self.get_data_from_file("team_roster_24.csv")
+
+        for line in roster_data:
+            items = line.split(',')
+
+            for player in items[1:]:
+                team = self.teams[items[0]]
+                try:
+                    team.add_player(self.players[player.rstrip('\n')])
+                    self.players[player.rstrip('\n')].current_team = team
+                except KeyError:
+                    player, position = ' '.join(player.split(' ')[:-1]), player.split(' ')[-1].rstrip('\n')
+                    team.add_player(self.players[player.rstrip('^\n')])
+                    self.players[player].current_team = team
+                    self.players[player].starter = True
+                    self.players[player].playing_position = position
 

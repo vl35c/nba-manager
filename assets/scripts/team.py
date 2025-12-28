@@ -1,3 +1,6 @@
+from ..scripts.player import Player
+
+
 class Team:
     def __init__(
         self,
@@ -6,4 +9,7 @@ class Team:
     ):
         self.name = name
         self.tricode = tricode
-        self.players = []
+        self.players: list[Player] = []
+
+    def add_player(self, player: Player) -> None:
+        self.players.append(player)
