@@ -9,6 +9,12 @@ class Display:
         self.team = []
 
         self.window = pygame.display.get_surface()
+        self.fonts = {
+            "Helvetica": pygame.font.Font("assets/fonts/HelveticaNeueLight.otf", 24),
+            "HelveticaSmall": pygame.font.Font("assets/fonts/HelveticaNeueLight.otf", 20),
+            "HelveticaLargeBold": pygame.font.Font("assets/fonts/HelveticaNeueBold.otf", 40),
+            "HelveticaBold": pygame.font.Font("assets/fonts/HelveticaNeueBold.otf", 24)
+        }
 
         self.script = None
 
@@ -40,6 +46,7 @@ class Display:
     def run(self):
         while True:
             self.draw_background()
+            self.draw_hud()
 
             for event in pygame.event.get():
                 if event.type == pygame.QUIT:

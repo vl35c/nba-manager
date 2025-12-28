@@ -1,4 +1,7 @@
+import pygame
 from ..display import Display
+from ..player import Player
+from ..settings import *
 
 
 class MainTeamConsole(Display):
@@ -73,3 +76,44 @@ class MainTeamConsole(Display):
                 key=lambda p: (int(p.playing_position), p.attributes["Total Attributes"]),
                 reverse=True
         )[5:]
+
+    def draw_hud(self):
+        team = self.manager.team
+
+        pygame.draw.rect(self.window, TEAM_COLORS[team.name][1], (20, 240, 480, 550))
+        pygame.draw.rect(self.window, TEAM_COLORS[team.name][0], (30, 250, 460, 530))
+
+        pygame.draw.rect(self.window, TEAM_COLORS[team.name][1], (240, 70, 120, 40), 0, 10)
+        pygame.draw.rect(self.window, TEAM_COLORS[team.name][1], (380, 70, 120, 40), 0, 10)
+        players = self.fonts["HelveticaBold"].render("PLAYERS", True, WHITE)
+        games = self.fonts["HelveticaBold"].render("GAMES", True, WHITE)
+
+        self.window.blit(players, (245, 80))
+        self.window.blit(games, (395, 80))
+
+        text = self.fonts["HelveticaBold"].render("PLAYERS", True, WHITE)
+        self.window.blit(text, (30, 210))
+
+        for index, player in enumerate(self.team[self.players_at_index:self.players_at_index + 5]):
+            self.draw_player(player, index)
+
+    def draw_player(self, player: Player, index) -> None:
+        pygame.draw.rect(self.window, WHITE, (40, 260 + 100 * index, 440, 102), 2)
+        
+        name = self.fonts["Helvetica"].render(player.name, True, WHITE)
+        position = self.fonts["Helvetica"].render(player.position[0], True, WHITE)
+        ovr = self.fonts["HelveticaLargeBold"].render(player.attributes["Total Attributes"], True, WHITE)
+
+        self.window.blit(name, (170, 330 + 100 * index))
+        self.window.blit(position, (170, 275 + 100 * index))
+        pygame.draw.rect(
+            self.window,
+            self.player_attribute_colors[player],
+            (353, 270 + 100 * index, 120, 80),
+            0,
+            16
+        )
+        self.window.blit(ovr, (370, 295 + 100 * index))
+
+        if player.image is not None:
+            self.window.blit(player.image, (30, 260 + 100 * index))

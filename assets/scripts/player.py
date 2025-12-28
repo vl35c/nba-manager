@@ -1,3 +1,4 @@
+import pygame
 from ..scripts.payment import Payment
 from ..scripts.contract import Contract
 from ..scripts.trade import Trade
@@ -60,3 +61,13 @@ class Player:
         }
 
         self.__media_loader = MediaLoader()
+
+    @property
+    def image(self) -> pygame.Surface:
+        if self.__image is None:
+            path = "assets/images/player_photos/"
+            filename = f"{'_'.join([a for a in self.current_team.name.split(' ')])}/{self.basketball_reference_id}.png"
+            self.__original_image = self.__media_loader.load_image_to_size(f"{path}{filename}", (350, 254))
+            self.__image = self.__media_loader.load_image_to_size(f"{path}{filename}", (140, 100))
+
+        return self.__image
