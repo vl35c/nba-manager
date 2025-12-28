@@ -118,6 +118,9 @@ class MainTeamConsole(Display):
         if player.image is not None:
             self.window.blit(player.image, (30, 260 + 100 * index))
 
+        # draw half court diagram
+        self.drawer.half_court(560, 240)
+
     # mouse hover handling
     def hover_functions(self):
         mx, my = pygame.mouse.get_pos()

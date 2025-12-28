@@ -1,6 +1,7 @@
 import pygame
 import sys
 from ..scripts.settings import *
+from ..scripts.drawer import Drawer
 
 
 class Display:
@@ -16,6 +17,7 @@ class Display:
             "HelveticaBold": pygame.font.Font("assets/fonts/HelveticaNeueBold.otf", 24)
         }
 
+        self.drawer = Drawer(manager)
         self.script = None
 
         self.logos = {}  # 200 x 200 team logo
