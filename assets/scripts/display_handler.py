@@ -20,6 +20,6 @@ class DisplayHandler:
         self.player_console = PlayerConsole(manager)
         self.main_games_console = MainGamesConsole(manager)
 
-        self.current = self.main_games_console
+        self.current = self.main_team_console
 
         self.current.setup_console(self.current)

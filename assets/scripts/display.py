@@ -6,6 +6,8 @@ from ..scripts.settings import *
 class Display:
     def __init__(self, manager):
         self.manager = manager
+        self.team = []
+
         self.window = pygame.display.get_surface()
 
         self.script = None
