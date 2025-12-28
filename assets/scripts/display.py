@@ -46,6 +46,7 @@ class Display:
     def run(self):
         while True:
             self.draw_background()
+            self.hover_functions()
             self.draw_hud()
 
             for event in pygame.event.get():

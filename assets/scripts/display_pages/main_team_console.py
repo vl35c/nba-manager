@@ -117,3 +117,32 @@ class MainTeamConsole(Display):
 
         if player.image is not None:
             self.window.blit(player.image, (30, 260 + 100 * index))
+
+    # mouse hover handling
+    def hover_functions(self):
+        mx, my = pygame.mouse.get_pos()
+        hand = lambda: pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_HAND)
+
+        interactive = {
+            (40, 260, 440, 502):  hand,
+            (740, 500, 125, 100): hand,
+            (560, 400, 125, 100): hand,
+            (900, 350, 125, 100): hand,
+            (620, 220, 125, 100): hand,
+            (800, 260, 125, 100): hand,
+            (510, 250, 30, 15):   hand,
+            (510, 275, 30, 15):   hand,
+            (560, 660, 506, 120): hand,
+            (535, 705, 15, 30):   hand,
+            (1072, 705, 15, 30):  hand,
+            (240, 70, 120, 40):   hand,
+            (380, 70, 120, 40):   hand
+        }
+
+        # checking collision this way as pygame.Rect is unhashable
+        for z in interactive:
+            if z[0] <= mx <= z[0] + z[2] and z[1] <= my <= z[1] + z[3]:
+                interactive[z]()
+                break
+        else:
+            pygame.mouse.set_cursor(pygame.SYSTEM_CURSOR_ARROW)
